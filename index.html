@@ -31,27 +31,50 @@
             box-shadow: 0 0 10px rgba(240, 200, 8, 0.5);
         }
 
-        .case-button {
-            background: #f0c808;
-            color: #1a1a1a;
-            font-weight: bold;
-            padding: 20px 40px;
-            margin: 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 5px 20px rgba(240, 200, 8, 0.4);
+        .cases-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .case-button:hover {
-            background: #ffd700;
-            transform: scale(1.05);
+        .case-box {
+            width: 300px;
+            background-color: #2a2a2a;
+            border: 3px solid #f0c808;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(240, 200, 8, 0.2);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .case-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(240, 200, 8, 0.4);
+        }
+
+        .case-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .case-name {
+            margin-top: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #f0c808;
+        }
+
+        .case-price {
+            margin-top: 5px;
+            font-size: 18px;
+            color: #ccc;
         }
     </style>
 
-    <!-- Telegram WebApp JS -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -59,28 +82,35 @@
 
     <h1>Cases</h1>
 
-    <button class="case-button" onclick="openCase('classic')">3 TON</button>
-    <button class="case-button" onclick="openCase('rare')">10 TON</button>
-    <button class="case-button" onclick="openCase('gold')">50 TON</button>
+    <div class="cases-container">
+        <div class="case-box" onclick="openCase('classic')">
+            <img src="https://i.ibb.co/8nnkNFyF/2025-04-21-9-53-51-PM-Photoroom.png" alt="Classic Case">
+            <div class="case-name">3 TON</div>
+        </div>
+        <div class="case-box" onclick="openCase('rare')">
+            <img src="https://i.ibb.co/4wV6WnzZ/2025-04-21-9-48-56-PM-Photoroom.png" alt="Rare Case">
+            <div class="case-name">10 TON</div>
+        </div>
+        <div class="case-box" onclick="openCase('gold')">
+            <img src="https://i.ibb.co/27BkD4sb/2025-04-21-9-43-01-PM-Photoroom.png" alt="Gold Case">
+            <div class="case-name">50 TON</div>
+        </div>
+    </div>
 
     <script>
         function openCase(caseName) {
             window.location.href = `case.html?case=${caseName}`;
         }
 
-        // Изначально баланс 1000 TON
         let balance = 1000;
 
-        // Проверка наличия Telegram WebApp
         if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
             const user = Telegram.WebApp.initDataUnsafe.user;
             if (user && user.id) {
-                // Здесь можно запросить баланс с сервера по user.id
-                balance = 100; // Пример значения, полученного от сервера
+                balance = 100;
             }
         }
 
-        // Обновление отображения баланса
         document.getElementById('balance').innerText = `${balance} TON`;
     </script>
 </body>
