@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Opening</title>
+    <title>Case Opening Simulator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -113,10 +113,13 @@
             color: #f0c808;
         }
     </style>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
+    <div class="balance-box" id="balance">Баланс: 1000 TON</div>
     <div class="container">
-        <h1>Case Opening</h1>
+        <h1>Case Opening Simulator</h1>
         
         <div class="case-wrapper">
             <div class="case-viewport">
@@ -138,8 +141,23 @@ function getCaseName() {
     // Если параметр не задан, возвращаем дефолтный кейс "classic"
     return caseParam ? caseParam.toLowerCase() : "classic";  // Приводим к нижнему регистру для согласованности
 }
+const balanceElement = document.getElementById("balance");
+        const errorElement = document.getElementById("errorMessage");
 
+        let balance = 1000;
 
+        // Получение баланса от Telegram
+        if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
+            const user = Telegram.WebApp.initDataUnsafe.user;
+            if (user && user.id) {
+                balance = 100;
+            }
+        }
+        function updateBalanceDisplay() {
+            balanceElement.textContent = `Баланс: ${balance} TON`;
+        }
+
+        updateBalanceDisplay();
         const imageUrl = "";
         const backupImageUrl = "https://via.placeholder.com/250x250/333/ffcc00?text=Item";
     
@@ -267,6 +285,13 @@ const goldItems = [
         const { roll, winningItem } = generateRollWithTarget(caseName);
         renderItems(roll);
 
+        if (balance < caseCost) {
+                errorElement.textContent = "Недостаточно TON для открытия кейса!";
+                return;
+            }
+        errorElement.textContent = "";
+        balance -= caseCost;
+        updateBalanceDisplay();
         const stopPosition = -(TARGET_INDEX * ITEM_WIDTH);
 
         let startTime = null;
