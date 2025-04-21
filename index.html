@@ -11,14 +11,26 @@
             text-align: center;
             padding: 40px;
         }
+
         h1 {
             color: #f0c808;
             margin-bottom: 20px;
         }
-        .balance {
+
+        .balance-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #000;
+            border: 2px solid #f0c808;
+            border-radius: 15px;
+            color: #f0c808;
+            padding: 15px 25px;
             font-size: 20px;
-            margin-bottom: 40px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(240, 200, 8, 0.5);
         }
+
         .case-button {
             background: #f0c808;
             color: #1a1a1a;
@@ -32,17 +44,20 @@
             transition: 0.3s;
             box-shadow: 0 5px 20px rgba(240, 200, 8, 0.4);
         }
+
         .case-button:hover {
             background: #ffd700;
             transform: scale(1.05);
         }
     </style>
-    <!-- Include Telegram WebApp JS -->
+
+    <!-- Telegram WebApp JS -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
+    <div class="balance-box" id="balance">Баланс: 1000 TON</div>
+
     <h1>Выберите кейс</h1>
-    <div class="balance" id="balance">Баланс: 1000 TON</div>
 
     <button class="case-button" onclick="openCase('classic')">Classic Case</button>
     <button class="case-button" onclick="openCase('rare')">Rare Case</button>
@@ -53,22 +68,20 @@
             window.location.href = `case.html?case=${caseName}`;
         }
 
-        // Initialize balance
-        let balance = 1000; // Default balance
+        // Изначально баланс 1000 TON
+        let balance = 1000;
 
-        // Check if Telegram WebApp is available
+        // Проверка наличия Telegram WebApp
         if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
             const user = Telegram.WebApp.initDataUnsafe.user;
             if (user && user.id) {
-                // Here you can implement logic to fetch the user's actual balance from your backend
-                // using the user.id as an identifier. For demonstration, we'll set it to 100.
-                balance = 100;
+                // Здесь можно запросить баланс с сервера по user.id
+                balance = 100; // Пример значения, полученного от сервера
             }
         }
 
-        // Update the balance display
+        // Обновление отображения баланса
         document.getElementById('balance').innerText = `Баланс: ${balance} TON`;
     </script>
 </body>
 </html>
-
