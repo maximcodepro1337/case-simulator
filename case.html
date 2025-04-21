@@ -113,40 +113,61 @@ button:disabled {
     color: #f0c808;
 }
 
-.balance-box {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: #000;
-    border: 2px solid #f0c808;
-    border-radius: 15px;
-    color: #f0c808;
-    padding: 15px 25px;
-    font-size: 20px;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(240, 200, 8, 0.5);
-    z-index: 10;
-}
+        .back-button {
+            background-color: #000;
+            color: #f0c808;
+            border: 4px solid #f0c808;
+            border-radius: 15px;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .back-button:hover {
+            background-color: #f0c808;
+            color: #000;
+        }
+
+        .balance-box {
+            background-color: #000;
+            border: 4px solid #f0c808;
+            border-radius: 15px;
+            color: #f0c808;
+            padding: 10px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(240, 200, 8, 0.5);
+            white-space: nowrap;
+            flex-shrink: 0;
+            text-align: right;
+        }
 
 /* Добавим адаптивный отступ для мобильных устройств */
-@media (max-width: 600px) {
-    .case-wrapper {
-        margin-top: 50px; /* увеличим отступ сверху */
-    }
-
-    .balance-box {
-        position: relative;
-        margin-bottom: 20px;
-        left: 0;
-        top: 0;
-        display: inline-block;
-    }
-}
+        @media (max-width: 600px) {
+            .top-panel {
+                padding: 0 5px; /* Уменьшаем боковые отступы */
+            }
+            
+            .back-button, .balance-box {
+                padding: 8px 10px;
+                font-size: 24px;
+                border-radius: 15px;
+                max-width: 48%; /* Ограничиваем ширину */
+             }
+            
+        } 
 
     </style>
 </head>
 <body>
-    <div class="balance-box" id="balance">1000 TON</div>
+    <div class="top-panel">
+        <button class="back-button" onclick="window.location.href='index.html'">Назад</button>
+        <div class="balance-box" id="balance">1000 TON</div>
+    </div>
     <div class="container">
         <h1>Case Opening</h1>
         
