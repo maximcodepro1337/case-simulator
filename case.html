@@ -5,135 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Opening Simulator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            color: #f0c808;
-            margin-bottom: 30px;
-        }
-        
-        .case-wrapper {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            margin: 40px 0;
-        }
-        
-        .case-viewport {
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-            background-color: #2a2a2a;
-            border: 5px solid #f0c808;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 0 30px rgba(240, 200, 8, 0.3);
-        }
-        
-        .items-container {
-            display: flex;
-            position: absolute;
-            left: 0;
-            height: 100%;
-        }
-        
-        .item {
-            width: 300px;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        
-        .item img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-        }
-        
-        button {
-            background-color: #f0c808;
-            color: #1a1a1a;
-            border: none;
-            padding: 15px 40px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(240, 200, 8, 0.4);
-        }
-        
-        button:hover {
-            background-color: #ffd700;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(240, 200, 8, 0.6);
-        }
-        
-        button:disabled {
-            background-color: #666;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
 
-        .error-message {
-            color: #ff5555;
-            margin-top: 20px;
-            font-size: 18px;
-        }
-        
-        .item-name {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 8px;
-            font-weight: bold;
-            color: #f0c808;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        .balance-box {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #000;
-            border: 2px solid #f0c808;
-            border-radius: 15px;
-            color: #f0c808;
-            padding: 15px 25px;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: 0 0 10px rgba(240, 200, 8, 0.5);
-        }
+h1 {
+    color: #f0c808;
+    margin-bottom: 30px;
+}
+
+.case-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 60px 0; /* увеличен отступ */
+}
+
+.case-viewport {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background-color: #2a2a2a;
+    border: 5px solid #f0c808;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 30px rgba(240, 200, 8, 0.3);
+}
+
+.items-container {
+    display: flex;
+    position: absolute;
+    left: 0;
+    height: 100%;
+}
+
+.item {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+button {
+    background-color: #f0c808;
+    color: #1a1a1a;
+    border: none;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(240, 200, 8, 0.4);
+}
+
+button:hover {
+    background-color: #ffd700;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(240, 200, 8, 0.6);
+}
+
+button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.error-message {
+    color: #ff5555;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.item-name {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px;
+    font-weight: bold;
+    color: #f0c808;
+}
+
+.balance-box {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #000;
+    border: 2px solid #f0c808;
+    border-radius: 15px;
+    color: #f0c808;
+    padding: 15px 25px;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(240, 200, 8, 0.5);
+    z-index: 10;
+}
+
+/* Добавим адаптивный отступ для мобильных устройств */
+@media (max-width: 600px) {
+    .case-wrapper {
+        margin-top: 100px; /* увеличим отступ сверху */
+    }
+
+    .balance-box {
+        position: relative;
+        margin-bottom: 20px;
+        left: 0;
+        top: 0;
+        display: inline-block;
+    }
+}
+
     </style>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="balance-box" id="balance">Баланс: 1000 TON</div>
+    <div class="balance-box" id="balance">1000 TON</div>
     <div class="container">
-        <h1>Case Opening Simulator</h1>
+        <h1>Case Opening</h1>
         
         <div class="case-wrapper">
             <div class="case-viewport">
@@ -143,12 +158,18 @@
             </div>
         </div>
         
-        <button id="spinButton">Спин</button>
+        <button id="spinButton">Open</button>
         <div id="errorMessage" class="error-message"></div>
     </div>
+    <div id="wonItemPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+    background-color:#000; padding:30px; border:4px solid #f0c808; border-radius:20px; box-shadow:0 0 40px #f0c808;
+    z-index:100; text-align:center;">
+    <img id="wonItemImage" src="" style="max-width:250px; max-height:250px; border-radius:10px; margin-bottom:15px;">
+    <div id="wonItemName" style="font-size:24px; font-weight:bold; color:#f0c808; margin-bottom:10px;"></div>
+    <button id="sellButton" style="padding:10px 30px; font-size:18px;">Sell</button>
+</div>
 
     <script>
-    const SERVER_URL = 'https://your-server.com'; // замените на ваш URL
 function getCaseName() {
     const urlParams = new URLSearchParams(window.location.search);
     const caseParam = urlParams.get("case");  // Извлекаем параметр case из URL
@@ -156,82 +177,73 @@ function getCaseName() {
     // Если параметр не задан, возвращаем дефолтный кейс "classic"
     return caseParam ? caseParam.toLowerCase() : "classic";  // Приводим к нижнему регистру для согласованности
 }
-let userId = null;
-        let balance = 0;
-        const caseCost = 150;
-
-        Telegram.WebApp.ready();
-        const tgUser = Telegram.WebApp.initDataUnsafe.user;
-        if (tgUser && tgUser.id) {
-            userId = tgUser.id;
-            fetch(`${SERVER_URL}/api/get_balance?userId=${userId}`)
-                .then(res => res.json())
-                .then(data => {
-                    balance = data.balance ?? 1000;
-                    updateBalanceDisplay();
-                })
-                .catch(err => {
-                    console.error(err);
-                    balance = 1000;
-                    updateBalanceDisplay();
-                });
+const balanceElement = document.getElementById("balance");
+         const errorElement = document.getElementById("errorMessage");
+        let balance = 1000;
+ 
+         // Получение баланса от Telegram
+         if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
+             const user = Telegram.WebApp.initDataUnsafe.user;
+             if (user && user.id) {
+                 balance = 500;
+             }
+            }
+            function updateBalanceDisplay() {
+            balanceElement.textContent = `${balance} TON`;
         }
-
-        function updateBalanceDisplay() {
-            balanceElement.textContent = `Баланс: ${balance} TON`;
-        }
-
-        function updateBalanceOnServer() {
-            fetch(`${SERVER_URL}/api/update_balance`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, balance }),
-            });
-        }
+            updateBalanceDisplay();
         const imageUrl = "";
         const backupImageUrl = "https://via.placeholder.com/250x250/333/ffcc00?text=Item";
     
         const classicItems = [
-            { name: "", image: "https://gifts.coffin.meme/desk calendar/Strong%20Circle.png", chance: 50 },
-            { name: "", image: 'https://gifts.coffin.meme/toy bear/Skittles.png', chance: 30 },
-            { name: "", image: "https://gifts.coffin.meme/swiss watch/El%20Dorado.png", chance: 15 },
-            { name: "", image: "https://gifts.coffin.meme/vintage%20cigar/El%20Classico.png", chance: 5 },
-            { name: "", image: "https://gifts.coffin.meme/astral shard/Sapphire.png", chance: 5 },
-            { name: "", image: "https://gifts.coffin.meme/perfume bottle/Juicy%20Bliss.png", chance: 5 },
-            { name: "", image: "https://gifts.coffin.meme/signet ring/Saturn%20Ring.png", chance: 5 },
-        ];
-        const rareItems = [
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/signet ring/Saturn%20Ring.png", chance: 12 },
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/vintage cigar/Premium%20Blend.png", chance: 12 },
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/magic potion/Heartbreaker.png", chance: 12 },
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/diamond ring/Cold%20Desire.png", chance: 12 },
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/swiss watch/Pot%20of%20Gold.png", chance: 25 },
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/perfume bottle/Eau%20De%20Parfum.png", chance: 20 },
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/ion gem/Chaos%20Emerald.png", chance: 5 },
-    { name: "Saturn Ring", image: "https://gifts.coffin.meme/precious peach/Bumblebee.png", chance: 2 },
+    { name: "Desk Calendar", image: "https://gifts.coffin.meme/desk calendar/Strong%20Circle.png", chance: 50, price: 2 },
+    { name: "Toy Bear", image: 'https://gifts.coffin.meme/toy bear/Skittles.png', chance: 30, price: 4 },
+    { name: "Swiss Watch", image: "https://gifts.coffin.meme/swiss watch/El%20Dorado.png", chance: 15, price: 7 },
+    { name: "Vintage Cigar", image: "https://gifts.coffin.meme/vintage%20cigar/El%20Classico.png", chance: 5, price: 20 },
+    { name: "Astral Shard", image: "https://gifts.coffin.meme/astral shard/Sapphire.png", chance: 5, price: 20 },
+    { name: "Perfume Bottle", image: "https://gifts.coffin.meme/perfume bottle/Juicy%20Bliss.png", chance: 5, price: 20 },
+    { name: "Signet Ring", image: "https://gifts.coffin.meme/signet ring/Saturn%20Ring.png", chance: 5, price: 20 },
 ];
 
-const goldItems = [
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/scared cat/Vapurr.png", chance: 10 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/vintage cigar/Pickle%20Rick.png", chance: 10 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/swiss watch/Sovereign.png", chance: 10 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/swiss watch/Zenith.png", chance: 10 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/astral shard/Barbed.png", chance: 10 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/ion gem/Saltwater.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/ion gem/Ultraviolet.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/mini oscar/Deep%20Freeze.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/durov's cap/Classic.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/precious peach/Crypto%20Orange.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/swiss watch/Rockefeller.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/eternal rose/Vivid%20Prize.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/sharp tongue/Secret%20Look.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/loot bag/Black%20Purrse.png", chance: 5 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/loot bag/Scrooge.png", chance: 1 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/kissed frog/Happy%20Pepe.png", chance: 1 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/swiss watch/Day%20Trader.png", chance: 1 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/signet ring/Crypto%20Boom.png", chance: 1 },
-    { name: "Gold Ring", image: "https://gifts.coffin.meme/plush pepe/Christmas.png", chance: 1 },
+
+const rareItems = [
+    { name: "signet ring", image: "https://gifts.coffin.meme/signet ring/Saturn%20Ring.png", chance: 12, price: 25 },
+    { name: "vintage cigar", image: "https://gifts.coffin.meme/vintage cigar/Premium%20Blend.png", chance: 12, price: 25 },
+    { name: "magic potion", image: "https://gifts.coffin.meme/magic potion/Heartbreaker.png", chance: 12, price: 25 },
+    { name: "diamond ring", image: "https://gifts.coffin.meme/diamond ring/Cold%20Desire.png", chance: 12, price: 25 },
+    { name: "swiss watch", image: "https://gifts.coffin.meme/swiss watch/Pot%20of%20Gold.png", chance: 25, price: 12 },
+    { name: "perfume bottle", image: "https://gifts.coffin.meme/perfume bottle/Eau%20De%20Parfum.png", chance: 20, price: 15 },
+    { name: "ion gem", image: "https://gifts.coffin.meme/ion gem/Chaos%20Emerald.png", chance: 5, price: 50 },
+    { name: "precious peach", image: "https://gifts.coffin.meme/precious peach/Bumblebee.png", chance: 2, price: 125 },
 ];
+
+
+
+
+const goldItems = [
+    { name: "scared cat", image: "https://gifts.coffin.meme/scared cat/Vapurr.png", chance: 10, price: 10 },
+    { name: "vintage cigar", image: "https://gifts.coffin.meme/vintage cigar/Pickle%20Rick.png", chance: 10, price: 10 },
+    { name: "swiss watch", image: "https://gifts.coffin.meme/swiss watch/Sovereign.png", chance: 10, price: 30 },
+    { name: "swiss watch", image: "https://gifts.coffin.meme/swiss watch/Zenith.png", chance: 10, price: 30 },
+    { name: "astral shard", image: "https://gifts.coffin.meme/astral shard/Barbed.png", chance: 10, price: 20 },
+    { name: "ion gem", image: "https://gifts.coffin.meme/ion gem/Saltwater.png", chance: 5, price: 120 },
+    { name: "ion gem", image: "https://gifts.coffin.meme/ion gem/Ultraviolet.png", chance: 5, price: 120 },
+    { name: "mini oscar", image: "https://gifts.coffin.meme/mini oscar/Deep%20Freeze.png", chance: 5, price: 30 },
+    { name: "durov's cap", image: "https://gifts.coffin.meme/durov's cap/Classic.png", chance: 5, price: 120 },
+    { name: "precious peach", image: "https://gifts.coffin.meme/precious peach/Crypto%20Orange.png", chance: 5, price: 120 },
+    { name: "swiss watch", image: "https://gifts.coffin.meme/swiss watch/Rockefeller.png", chance: 5, price: 120 },
+    { name: "eternal rose", image: "https://gifts.coffin.meme/eternal rose/Vivid%20Prize.png", chance: 5, price: 120 },
+    { name: "sharp tongue", image: "https://gifts.coffin.meme/sharp tongue/Secret%20Look.png", chance: 5, price: 120 },
+    { name: "loot bag", image: "https://gifts.coffin.meme/loot bag/Black%20Purrse.png", chance: 5, price: 120 },
+    { name: "loot bag", image: "https://gifts.coffin.meme/loot bag/Scrooge.png", chance: 1, price: 500 },
+    { name: "kissed frog", image: "https://gifts.coffin.meme/kissed frog/Happy%20Pepe.png", chance: 1, price: 300 },
+    { name: "swiss watch", image: "https://gifts.coffin.meme/swiss watch/Day%20Trader.png", chance: 1, price: 300 },
+    { name: "signet ring", image: "https://gifts.coffin.meme/signet ring/Crypto%20Boom.png", chance: 1, price: 300 },
+    { name: "plush pepe", image: "https://gifts.coffin.meme/plush pepe/Christmas.png", chance: 1, price: 600 },
+];
+
+
+
     
 
         const itemsContainer = document.getElementById('itemsContainer');
@@ -274,11 +286,11 @@ const goldItems = [
     function getCaseCost(caseName) {
     switch (caseName) {
         case "classic":
-            return 10;
+            return 5;
         case "rare":
-            return 25;
+            return 10;
         case "gold":
-            return 150;
+            return 50;
         default:
             return 25; // по умолчанию, если кейс не распознан
     }
@@ -333,10 +345,9 @@ const goldItems = [
             isSpinning = false;
             return;
         }
-        errorElement.textContent = "";
+        // errorElement.textContent = "";
         balance -= caseCost;
         updateBalanceDisplay();
-        updateBalanceOnServer();
         const stopPosition = -(TARGET_INDEX * ITEM_WIDTH);
 
         let startTime = null;
@@ -352,15 +363,36 @@ const goldItems = [
             if (progress < 1) {
                 requestAnimationFrame(animate);
             } else {
+                    // setTimeout(() => {
+                    //     itemsContainer.style.transform = `translateX(${stopPosition}px)`;
+                    //     setTimeout(() => {
+                    //         itemsContainer.style.transition = 'none';
+                    //         isSpinning = false;
+                    //         spinButton.disabled = false;
+                    //         console.log("Выпал предмет:", winningItem.name);
+                    //     }, 300);
+                    // }, 300);
                     setTimeout(() => {
-                        itemsContainer.style.transform = `translateX(${stopPosition}px)`;
-                        setTimeout(() => {
-                            itemsContainer.style.transition = 'none';
-                            isSpinning = false;
-                            spinButton.disabled = false;
-                            console.log("Выпал предмет:", winningItem.name);
-                        }, 300);
-                    }, 300);
+                    itemsContainer.style.transition = 'none';
+                    isSpinning = false;
+                    spinButton.disabled = false;
+
+                    // Показываем выигранный предмет
+                    document.getElementById("wonItemImage").src = winningItem.image || backupImageUrl;
+                    document.getElementById("wonItemName").textContent = `${winningItem.name || ""}  ${winningItem.price} TON`;
+                    document.getElementById("wonItemPopup").style.display = "block";
+
+                    // Обработчик кнопки Продать
+                    const sellButton = document.getElementById("sellButton");
+                    sellButton.onclick = () => {
+                        balance += winningItem.price;
+                        updateBalanceDisplay();
+                        document.getElementById("wonItemPopup").style.display = "none";
+                    };
+
+                    console.log("Выпал предмет:", winningItem.name);
+                }, 300);
+
             }
         }
 
