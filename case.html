@@ -112,6 +112,20 @@
             font-weight: bold;
             color: #f0c808;
         }
+
+        .balance-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #000;
+            border: 2px solid #f0c808;
+            border-radius: 15px;
+            color: #f0c808;
+            padding: 15px 25px;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(240, 200, 8, 0.5);
+        }
     </style>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -241,7 +255,18 @@ const goldItems = [
     const pool = buildWeightedPool(itemPool);
     return pool[Math.floor(Math.random() * pool.length)];
     }
-
+    function getCaseCost(caseName) {
+    switch (caseName) {
+        case "classic":
+            return 10;
+        case "rare":
+            return 25;
+        case "gold":
+            return 150;
+        default:
+            return 25; // по умолчанию, если кейс не распознан
+    }
+}
 
     function generateRollWithTarget(caseName) {
         const roll = [];
@@ -282,13 +307,16 @@ const goldItems = [
         spinButton.disabled = true;
 
         const caseName = getCaseName();  // Получаем имя кейса здесь
+        const caseCost = getCaseCost(caseName);
         const { roll, winningItem } = generateRollWithTarget(caseName);
         renderItems(roll);
 
         if (balance < caseCost) {
-                errorElement.textContent = "Недостаточно TON для открытия кейса!";
-                return;
-            }
+            errorElement.textContent = "Недостаточно TON для открытия кейса!";
+            spinButton.disabled = false;
+            isSpinning = false;
+            return;
+        }
         errorElement.textContent = "";
         balance -= caseCost;
         updateBalanceDisplay();
