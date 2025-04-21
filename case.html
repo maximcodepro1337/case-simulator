@@ -148,6 +148,7 @@
     </div>
 
     <script>
+    const SERVER_URL = 'https://your-server.com'; // замените на ваш URL
 function getCaseName() {
     const urlParams = new URLSearchParams(window.location.search);
     const caseParam = urlParams.get("case");  // Извлекаем параметр case из URL
@@ -155,23 +156,38 @@ function getCaseName() {
     // Если параметр не задан, возвращаем дефолтный кейс "classic"
     return caseParam ? caseParam.toLowerCase() : "classic";  // Приводим к нижнему регистру для согласованности
 }
-const balanceElement = document.getElementById("balance");
-        const errorElement = document.getElementById("errorMessage");
+let userId = null;
+        let balance = 0;
+        const caseCost = 150;
 
-        let balance = 1000;
-
-        // Получение баланса от Telegram
-        if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
-            const user = Telegram.WebApp.initDataUnsafe.user;
-            if (user && user.id) {
-                balance = 100;
-            }
+        Telegram.WebApp.ready();
+        const tgUser = Telegram.WebApp.initDataUnsafe.user;
+        if (tgUser && tgUser.id) {
+            userId = tgUser.id;
+            fetch(`${SERVER_URL}/api/get_balance?userId=${userId}`)
+                .then(res => res.json())
+                .then(data => {
+                    balance = data.balance ?? 1000;
+                    updateBalanceDisplay();
+                })
+                .catch(err => {
+                    console.error(err);
+                    balance = 1000;
+                    updateBalanceDisplay();
+                });
         }
+
         function updateBalanceDisplay() {
             balanceElement.textContent = `Баланс: ${balance} TON`;
         }
 
-        updateBalanceDisplay();
+        function updateBalanceOnServer() {
+            fetch(`${SERVER_URL}/api/update_balance`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, balance }),
+            });
+        }
         const imageUrl = "";
         const backupImageUrl = "https://via.placeholder.com/250x250/333/ffcc00?text=Item";
     
@@ -320,6 +336,7 @@ const goldItems = [
         errorElement.textContent = "";
         balance -= caseCost;
         updateBalanceDisplay();
+        updateBalanceOnServer();
         const stopPosition = -(TARGET_INDEX * ITEM_WIDTH);
 
         let startTime = null;
