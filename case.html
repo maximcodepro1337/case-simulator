@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Opening Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #f0c808;
+            margin-bottom: 30px;
+        }
+        
+        .case-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin: 40px 0;
+        }
+        
+        .case-viewport {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            background-color: #2a2a2a;
+            border: 5px solid #f0c808;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 30px rgba(240, 200, 8, 0.3);
+        }
+        
+        .items-container {
+            display: flex;
+            position: absolute;
+            left: 0;
+            height: 100%;
+        }
+        
+        .item {
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        button {
+            background-color: #f0c808;
+            color: #1a1a1a;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(240, 200, 8, 0.4);
+        }
+        
+        button:hover {
+            background-color: #ffd700;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(240, 200, 8, 0.6);
+        }
+        
+        button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .error-message {
+            color: #ff5555;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        
+        .item-name {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 8px;
+            font-weight: bold;
+            color: #f0c808;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Case Opening Simulator</h1>
+        
+        <div class="case-wrapper">
+            <div class="case-viewport">
+                <div class="items-container" id="itemsContainer">
+                    <!-- Здесь будут добавляться предметы через JS -->
+                </div>
+            </div>
+        </div>
+        
+        <button id="spinButton">Спин</button>
+        <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <script>
+function getCaseName() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const caseParam = urlParams.get("case");  // Извлекаем параметр case из URL
+
+    // Если параметр не задан, возвращаем дефолтный кейс "classic"
+    return caseParam ? caseParam.toLowerCase() : "classic";  // Приводим к нижнему регистру для согласованности
+}
+
+
+        const imageUrl = "";
+        const backupImageUrl = "https://via.placeholder.com/250x250/333/ffcc00?text=Item";
+    
+        const classicItems = [
+            { name: "", image: "https://gifts.coffin.meme/desk calendar/Strong%20Circle.png", chance: 50 },
+            { name: "", image: 'https://gifts.coffin.meme/toy bear/Skittles.png', chance: 30 },
+            { name: "", image: "https://gifts.coffin.meme/swiss watch/El%20Dorado.png", chance: 15 },
+            { name: "", image: "https://gifts.coffin.meme/vintage%20cigar/El%20Classico.png", chance: 5 },
+            { name: "", image: "https://gifts.coffin.meme/astral shard/Sapphire.png", chance: 5 },
+            { name: "", image: "https://gifts.coffin.meme/perfume bottle/Juicy%20Bliss.png", chance: 5 },
+            { name: "", image: "https://gifts.coffin.meme/signet ring/Saturn%20Ring.png", chance: 5 },
+        ];
+        const rareItems = [
+    { name: "Saturn Ring", image: "https://gifts.coffin.meme/signet ring/Saturn%20Ring.png", chance: 5 },
+];
+
+const goldItems = [
+    { name: "Gold Ring", image: "https://gifts.coffin.meme/signet ring/Gold.png", chance: 100 },
+];
+    
+
+        const itemsContainer = document.getElementById('itemsContainer');
+    const spinButton = document.getElementById('spinButton');
+    let isSpinning = false;
+
+    const ITEM_WIDTH = 300;
+    const ROLL_LENGTH = 100; // длина всей рулетки
+    const TARGET_INDEX = 80; // место, где остановится (центр экрана)
+
+    function buildWeightedPool(items) {
+        const pool = [];
+        items.forEach(item => {
+            for (let i = 0; i < item.chance; i++) {
+                pool.push(item);
+            }
+        });
+        return pool;
+    }
+
+    function getRandomItemByChance(caseName) {
+    let itemPool;
+    switch (caseName) {
+        case "classic":
+            itemPool = classicItems;
+            break;
+        case "rare":
+            itemPool = rareItems;
+            break;
+        case "gold":
+            itemPool = goldItems;
+            break;
+        default:
+            itemPool = rareItems;
+    }
+
+    const pool = buildWeightedPool(itemPool);
+    return pool[Math.floor(Math.random() * pool.length)];
+    }
+
+
+    function generateRollWithTarget(caseName) {
+        const roll = [];
+
+        // Генерируем до целевого места — случайные
+        for (let i = 0; i < TARGET_INDEX; i++) {
+            roll.push(getRandomItemByChance(caseName));
+        }
+
+        // Победитель
+        const winningItem = getRandomItemByChance(caseName);
+        roll.push(winningItem);
+
+        // Остальные до конца
+        for (let i = TARGET_INDEX + 1; i < ROLL_LENGTH; i++) {
+            roll.push(getRandomItemByChance(caseName));
+        }
+
+        return { roll, winningItem };
+    }
+
+    function renderItems(rollItems) {
+        itemsContainer.innerHTML = '';
+        rollItems.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'item';
+            const imgSrc = item.image || backupImageUrl;
+            itemElement.innerHTML = `
+                <img src="${imgSrc}" alt="${item.name}" onerror="this.src='${backupImageUrl}'">
+            `;
+            itemsContainer.appendChild(itemElement);
+        });
+    }
+
+    function spin() {
+        if (isSpinning) return;
+        isSpinning = true;
+        spinButton.disabled = true;
+
+        const caseName = getCaseName();  // Получаем имя кейса здесь
+        const { roll, winningItem } = generateRollWithTarget(caseName);
+        renderItems(roll);
+
+        const stopPosition = -(TARGET_INDEX * ITEM_WIDTH);
+
+        let startTime = null;
+        const duration = 3000;
+
+        function animate(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const easing = 1 - Math.pow(1 - progress, 3);
+            const currentPosition = stopPosition * easing;
+            itemsContainer.style.transform = `translateX(${currentPosition}px)`;
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                    setTimeout(() => {
+                        itemsContainer.style.transform = `translateX(${stopPosition}px)`;
+                        setTimeout(() => {
+                            itemsContainer.style.transition = 'none';
+                            isSpinning = false;
+                            spinButton.disabled = false;
+                            console.log("Выпал предмет:", winningItem.name);
+                        }, 300);
+                    }, 300);
+            }
+        }
+
+        itemsContainer.style.transition = 'none';
+        itemsContainer.style.transform = 'translateX(0)';
+        setTimeout(() => {
+            requestAnimationFrame(animate);
+        }, 50);
+    }
+
+    spinButton.addEventListener('click', spin);
+</script>
+    
+</body>
+</html>

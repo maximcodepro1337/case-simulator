@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор Кейса</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            color: #f0c808;
+            margin-bottom: 40px;
+        }
+        .case-button {
+            background: #f0c808;
+            color: #1a1a1a;
+            font-weight: bold;
+            padding: 20px 40px;
+            margin: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(240, 200, 8, 0.4);
+        }
+        .case-button:hover {
+            background: #ffd700;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Выберите кейс</h1>
+
+    <button class="case-button" onclick="openCase('classic')">Classic Case</button>
+    <button class="case-button" onclick="openCase('rare')">Rare Case</button>
+    <button class="case-button" onclick="openCase('gold')">Gold Case</button>
+
+    <script>
+        function openCase(caseName) {
+            window.location.href = `case.html?case=${caseName}`;
+        }
+    </script>
+</body>
+</html>
