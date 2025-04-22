@@ -104,26 +104,22 @@
     }
 }
     </style>
-
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="balance-box" id="balance">Баланс: 1000 TON</div>
-
     <h1>Cases</h1>
 
     <div class="cases-container">
         <div class="case-box" onclick="openCase('classic')">
             <img src="https://i.ibb.co/8nnkNFyF/2025-04-21-9-53-51-PM-Photoroom.png" alt="Classic Case">
-            <div class="case-name">3 TON</div>
+            <div class="case-name">5 TON</div>
         </div>
         <div class="case-box" onclick="openCase('rare')">
             <img src="https://i.ibb.co/4wV6WnzZ/2025-04-21-9-48-56-PM-Photoroom.png" alt="Rare Case">
-            <div class="case-name">10 TON</div>
+            <div class="case-name">20 TON</div>
         </div>
         <div class="case-box" onclick="openCase('gold')">
             <img src="https://i.ibb.co/27BkD4sb/2025-04-21-9-43-01-PM-Photoroom.png" alt="Gold Case">
-            <div class="case-name">50 TON</div>
+            <div class="case-name">100 TON</div>
         </div>
     </div>
 
@@ -131,17 +127,6 @@
         function openCase(caseName) {
             window.location.href = `case.html?case=${caseName}`;
         }
-
-        let balance = 1000;
-
-        if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
-            const user = Telegram.WebApp.initDataUnsafe.user;
-            if (user && user.id) {
-                balance = 100;
-            }
-        }
-
-        document.getElementById('balance').innerText = `${balance} TON`;
     </script>
 </body>
 </html>
