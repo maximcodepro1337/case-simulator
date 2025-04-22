@@ -225,9 +225,9 @@ const balanceElement = document.getElementById("balance");
         const backupImageUrl = "https://via.placeholder.com/250x250/333/ffcc00?text=Item";
     
         const classicItems = [
-    { name: "Desk Calendar", image: "https://gifts.coffin.meme/desk calendar/Strong%20Circle.png", chance: 50, price: 2 },
-    { name: "Toy Bear", image: 'https://gifts.coffin.meme/toy bear/Skittles.png', chance: 30, price: 4 },
-    { name: "Swiss Watch", image: "https://gifts.coffin.meme/swiss watch/El%20Dorado.png", chance: 15, price: 7 },
+    { name: "Desk Calendar", image: "https://gifts.coffin.meme/desk calendar/Strong%20Circle.png", chance: 50, price: 1 },
+    { name: "Toy Bear", image: 'https://gifts.coffin.meme/toy bear/Skittles.png', chance: 30, price: 2 },
+    { name: "Swiss Watch", image: "https://gifts.coffin.meme/swiss watch/El%20Dorado.png", chance: 15, price: 15 },
     { name: "Vintage Cigar", image: "https://gifts.coffin.meme/vintage%20cigar/El%20Classico.png", chance: 5, price: 20 },
     { name: "Astral Shard", image: "https://gifts.coffin.meme/astral shard/Sapphire.png", chance: 5, price: 20 },
     { name: "Perfume Bottle", image: "https://gifts.coffin.meme/perfume bottle/Juicy%20Bliss.png", chance: 5, price: 20 },
@@ -361,7 +361,7 @@ const goldItems = [
 
     const ITEM_WIDTH = 300;
     const ROLL_LENGTH = 100; // длина всей рулетки
-    const TARGET_INDEX = 80; // место, где остановится (центр экрана)
+    const TARGET_INDEX = 30; // место, где остановится (центр экрана)
 
     function buildWeightedPool(items) {
         const pool = [];
@@ -397,11 +397,11 @@ const goldItems = [
         case "classic":
             return 5;
         case "rare":
-            return 10;
+            return 20;
         case "gold":
-            return 50;
+            return 100;
         default:
-            return 25; // по умолчанию, если кейс не распознан
+            return 0; // по умолчанию, если кейс не распознан
     }
 }
 
